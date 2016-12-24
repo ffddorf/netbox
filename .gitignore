@@ -18,3 +18,7 @@ netbox.pid
 .idea
 .coverage
 .vscode
+
+# Heroku
+.env
+venv/
