@@ -78,7 +78,7 @@ PAGINATE_COUNT = os.environ.get('PAGINATE_COUNT', 50)
 
 # When determining the primary IP address for a device, IPv6 is preferred over IPv4 by default. Set this to True to
 # prefer IPv4 instead.
-PREFER_IPV4 = False
+PREFER_IPV4 = os.environ.get('PREFER_IPV4', "False") in ["1", "True", "true", "yes"]
 
 # The Webhook event backend is disabled by default. Set this to True to enable it. Note that this requires a Redis
 # database be configured and accessible by NetBox (see `REDIS` below).
