@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+import json
 #########################
 #                       #
 #   Required settings   #
@@ -54,12 +55,43 @@ BASE_PATH = os.environ.get('BASE_PATH', '')
 # Setting this to True will display a "maintenance mode" banner at the top of every page.
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 
-# Credentials that NetBox will use to access live devices.
-NETBOX_USERNAME = os.environ.get('NETBOX_USERNAME', '')
-NETBOX_PASSWORD = os.environ.get('NETBOX_PASSWORD', '')
+# Credentials that NetBox will uses to authenticate to devices when connecting via NAPALM.
+NAPALM_USERNAME = os.environ.get('NAPALM_USERNAME', '')
+NAPALM_PASSWORD = os.environ.get('NAPALM_PASSWORD', '')
+
+# NAPALM timeout (in seconds). (Default: 30)
+NAPALM_TIMEOUT = os.environ.get('NAPALM_PASSWORD', 30)
+
+# NAPALM optional arguments (see http://napalm.readthedocs.io/en/latest/support/#optional-arguments). Arguments must
+# be provided as a dictionary.
+NAPALM_ARGS = {}
+
+napalm_args_raw = os.environ.get('NAPALM_ARGS')
+if napalm_args_raw is not None:
+    try:
+        NAPALM_ARGS = json.loads(napalm_args_raw)
+    except:
+        pass
 
 # Determine how many objects to display per page within a list. (Default: 50)
 PAGINATE_COUNT = os.environ.get('PAGINATE_COUNT', 50)
+
+# When determining the primary IP address for a device, IPv6 is preferred over IPv4 by default. Set this to True to
+# prefer IPv4 instead.
+PREFER_IPV4 = False
+
+# The Webhook event backend is disabled by default. Set this to True to enable it. Note that this requires a Redis
+# database be configured and accessible by NetBox (see `REDIS` below).
+WEBHOOKS_ENABLED = False
+
+# Redis database settings (optional). A Redis database is required only if the webhooks backend is enabled.
+REDIS = {
+    'HOST': 'localhost',
+    'PORT': 6379,
+    'PASSWORD': '',
+    'DATABASE': 0,
+    'DEFAULT_TIMEOUT': 300,
+}
 
 # Time zone (default: UTC)
 TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
