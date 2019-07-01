@@ -1,6 +1,12 @@
 import os
 import dj_database_url
 import json
+
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
+
 #########################
 #                       #
 #   Required settings   #
@@ -21,6 +27,17 @@ DATABASE = dj_database_url.config()
 # symbols. NetBox will not run without this defined. For more information, see
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
+
+# Redis database settings. The Redis database is used for caching and background processing such as webhooks
+urlparse.uses_netloc.append("redis")
+REDIS_URL = os.environ.get('REDIS_URL')
+if REDIS_URL is not None:
+    redis_conn = urlparse.urlparse(REDIS_URL)
+    REDIS = {
+        'HOST': redis_conn.hostname,
+        'PORT': redis_conn.port,
+        'PASSWORD': redis_conn.password,
+    }
 
 #########################
 #                       #
