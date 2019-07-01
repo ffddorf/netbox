@@ -101,15 +101,6 @@ PREFER_IPV4 = os.environ.get('PREFER_IPV4', "False") in ["1", "True", "true", "y
 # database be configured and accessible by NetBox (see `REDIS` below).
 WEBHOOKS_ENABLED = False
 
-# Redis database settings (optional). A Redis database is required only if the webhooks backend is enabled.
-REDIS = {
-    'HOST': 'localhost',
-    'PORT': 6379,
-    'PASSWORD': '',
-    'DATABASE': 0,
-    'DEFAULT_TIMEOUT': 300,
-}
-
 # Time zone (default: UTC)
 TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
 
