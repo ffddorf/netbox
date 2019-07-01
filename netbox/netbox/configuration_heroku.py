@@ -99,7 +99,7 @@ PREFER_IPV4 = os.environ.get('PREFER_IPV4', "False") in ["1", "True", "true", "y
 
 # The Webhook event backend is disabled by default. Set this to True to enable it. Note that this requires a Redis
 # database be configured and accessible by NetBox (see `REDIS` below).
-WEBHOOKS_ENABLED = False
+WEBHOOKS_ENABLED = os.environ.get('WEBHOOKS_ENABLED', "False") in ["1", "True", "true", "yes"]
 
 # Time zone (default: UTC)
 TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
